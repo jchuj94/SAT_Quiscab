@@ -33,7 +33,7 @@ st.set_page_config(
 # Parametros del proyecto. Ajustar si se usa otra cuenta de servicio.
 SA_EMAIL = "service-ee-cydata@ee-cydata.iam.gserviceaccount.com"
 JSON_PATH = "/content/drive/MyDrive/gee_keys/service-key.json"
-PROYECTO_GEE = "ee-josechujmatul"
+PROYECTO_GEE = "tutorial-177615"
 
 # Punto de anclaje dentro de la subcuenca del Quiscab (Solola).
 # Se usa solo si no se carga el vector oficial.
