@@ -1,7 +1,0 @@
-streamlit
-earthengine-api
-folium
-streamlit-folium
-plotly
-pandas
-numpy
