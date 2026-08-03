@@ -1,0 +1,58 @@
+# =============================================================================
+# Cosecha automatica de la red de estaciones del SAT Quiscab
+# =============================================================================
+# Resuelve el problema del almacenamiento efimero de Streamlit Cloud: en vez de
+# depender de que la app este despierta, GitHub Actions ejecuta la cosecha cada
+# 30 minutos y versiona la base de datos en el propio repositorio.
+#
+# La app de Streamlit lee esa base desde el repo, de modo que la serie historica
+# sobrevive a reinicios y va creciendo de forma continua.
+#
+# Requiere (opcional): secreto WU_API_KEY en Settings > Secrets > Actions
+# =============================================================================
+name: Cosecha SAT Quiscab
+
+on:
+  schedule:
+    - cron: "0 */3 * * *"     # cada 3 horas (captura el 100% de los registros)
+  workflow_dispatch:           # permite ejecucion manual desde la web
+
+permissions:
+  contents: write
+
+jobs:
+  cosechar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias minimas
+        run: pip install requests pandas
+
+      - name: Ejecutar cosecha de la red
+        env:
+          WU_API_KEY: ${{ secrets.WU_API_KEY }}
+        run: |
+          if [ -n "$WU_API_KEY" ]; then
+            python sat_datos.py --db sat_quiscab.db --api-key "$WU_API_KEY"
+          else
+            python sat_datos.py --db sat_quiscab.db
+          fi
+
+      - name: Versionar la base de datos actualizada
+        run: |
+          git config user.name  "SAT Quiscab Bot"
+          git config user.email "actions@github.com"
+          git add sat_quiscab.db
+          if git diff --staged --quiet; then
+            echo "Sin cambios que registrar."
+          else
+            git commit -m "Cosecha automatica $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
