@@ -1,0 +1,40 @@
+# ============================================================
+# CONTENIDO PARA EL ARCHIVO .gitignore
+# (crear en GitHub con: Add file > Create new file > .gitignore)
+# ============================================================
+
+# --- CREDENCIALES: nunca versionar ---
+.streamlit/secrets.toml
+*.json
+!cuenca_quiscab.geojson
+service-key*
+*credentials*
+*.pem
+*.key
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# --- Bases de datos locales y pruebas ---
+prueba.db
+test_*.db
+*.db-journal
+sat_quiscab_export.csv
+*_export.csv
+
+# --- Sistema operativo ---
+.DS_Store
+Thumbs.db
+
+# --- Editores ---
+.vscode/
+.idea/
+*.swp
+
+# --- Notebooks ---
+.ipynb_checkpoints/
