@@ -1,0 +1,11 @@
+# NUNCA subir credenciales
+.streamlit/secrets.toml
+*.json
+service-key*
+
+# Archivos locales
+__pycache__/
+*.pyc
+prueba.db
+test_sintetico.db
+sat_quiscab_export.csv
