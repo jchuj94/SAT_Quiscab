@@ -1,0 +1,11 @@
+streamlit>=1.36
+earthengine-api
+folium
+streamlit-folium
+numpy
+pandas
+plotly
+shapely
+requests
+matplotlib
+streamlit-autorefresh
