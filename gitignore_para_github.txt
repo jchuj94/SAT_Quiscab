@@ -1,6 +1,0 @@
-# NUNCA subir la llave de servicio al repositorio
-*.json
-service-key.json
-.streamlit/secrets.toml
-__pycache__/
-*.pyc
